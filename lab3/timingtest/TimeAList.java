@@ -1,5 +1,5 @@
 package timingtest;
-import edu.princeton.cs.algs4.In;
+
 import edu.princeton.cs.algs4.Stopwatch;
 
 /**
@@ -37,7 +37,6 @@ public class TimeAList {
         Ns.addLast(64000);
         Ns.addLast(128000);
         Ns.addLast(256000);
-        Ns.addLast(10000000);
 
 
         for (int i = 0; i < Ns.size(); i++) {
