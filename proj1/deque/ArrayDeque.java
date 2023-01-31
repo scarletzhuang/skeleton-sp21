@@ -79,9 +79,14 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
+
         if ((items.length >= 16) && (size < items.length / 4) ) {
             resize(items.length / 4);
         }
+
         int first = getFirstItemIndex();
         T removed = items[first];
         items[first] = null;
@@ -92,6 +97,10 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
+
         if ((items.length >= 16) && (size < items.length / 4) ) {
             resize(items.length / 4);
         }
@@ -106,7 +115,11 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        return items[getFirstItemIndex() + index];
+        index = getFirstItemIndex() + index;
+        if (index >= items.length) {
+            index = index - items.length;
+        }
+        return items[index];
     }
 
     private int getFirstItemIndex() {
