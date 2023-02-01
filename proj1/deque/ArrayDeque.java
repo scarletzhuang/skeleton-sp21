@@ -43,16 +43,6 @@ public class ArrayDeque<T> implements Deque<T> {
         nextLast = nextLast + 1;
     }
 
-    private void resize(int capacity) {
-        T[] array = (T[]) new Object[capacity];
-        int first = getFirstItemIndex();
-        System.arraycopy(items, first, array, 0, size - first);
-        System.arraycopy(items, 0, array, size - first, first);
-        items = array;
-        nextFirst = capacity - 1;
-        nextLast = size;
-    }
-
     @Override
     public boolean isEmpty() {
         return size == 0;
@@ -83,7 +73,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
 
-        if ((items.length >= 16) && (size < items.length / 4) ) {
+        if ((items.length >= 16) && (size < items.length / 4)) {
             resize(items.length / 4);
         }
 
@@ -101,7 +91,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
 
-        if ((items.length >= 16) && (size < items.length / 4) ) {
+        if ((items.length >= 16) && (size < items.length / 4)) {
             resize(items.length / 4);
         }
 
@@ -120,6 +110,30 @@ public class ArrayDeque<T> implements Deque<T> {
             index = index - items.length;
         }
         return items[index];
+    }
+
+    private void resize(int capacity) {
+        T[] a = (T[]) new Object[capacity];
+        int newIndex = 0;
+
+        int index = getFirstItemIndex();
+        do {
+            a[newIndex] = items[index];
+            newIndex += 1;
+            index += 1;
+        } while (index < items.length && items[index] != null);
+
+        newIndex = size - 1;
+        index = getLastItemIndex();
+        do {
+            a[newIndex] = items[index];
+            newIndex -= 1;
+            index -= 1;
+        } while (index > -1 && items[index] != null);
+
+        items = a;
+        nextFirst = capacity - 1;
+        nextLast = size;
     }
 
     private int getFirstItemIndex() {
