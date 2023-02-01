@@ -147,4 +147,15 @@ public class LinkedListDequeTest {
         lld2.addLast("test2");
         assertFalse(lld1.equals(lld2));
     }
+
+    @Test
+    public void iterableTest() {
+        LinkedListDeque<String> lld = new LinkedListDeque<>();
+        lld.addLast("string 1");
+        lld.addLast("string 2");
+        lld.addLast("string 3");
+        for (String item: lld) {
+            System.out.println(item);
+        }
+    }
 }

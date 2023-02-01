@@ -1,6 +1,8 @@
 package deque;
 
-public class LinkedListDeque<T> implements Deque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class Node {
 
         public T item;
@@ -16,8 +18,8 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
 
-    }
 
+    }
     private int size;
 
     private final Node sentinel;
@@ -50,15 +52,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public void printDeque() {
-        Node node = sentinel.next;
-        String result = "";
-
-        for (int i = 0; i < size; i++) {
-            result = String.format("%s %s", result, node.item);
-            node = node.next;
-        }
-
-        System.out.printf(result);
+        System.out.println(this);
     }
 
     @Override
@@ -105,22 +99,57 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
         if (!(o instanceof LinkedListDeque)) {
             return false;
         }
-
         LinkedListDeque<T> otherDeque = (LinkedListDeque) o;
-
         if (otherDeque.size() != this.size()) {
             return false;
         }
-
         for (int i = 0; i < this.size(); i++) {
             if (!this.get(i).equals(otherDeque.get(i))) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (T item : this) {
+            sb.append(item.toString());
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
+    }
+
+    private class LinkedListDequeIterator implements Iterator<T> {
+        private Node curNode = sentinel;
+        private int curPos = 0;
+
+        @Override
+        public boolean hasNext() {
+            return curPos < size;
+        }
+
+        @Override
+        public T next() {
+            curNode = curNode.next;
+            curPos = curPos + 1;
+            return curNode.item;
+        }
     }
 
     /**

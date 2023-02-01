@@ -81,7 +81,7 @@ public class ArrayDequeTest {
     public void randomTest() {
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
 
-        int N = 5000;
+        int N = 10000;
         for (int i = 0; i < N; i++) {
             int opNumber = StdRandom.uniform(0, 5);
             if (opNumber == 0) {
@@ -99,6 +99,18 @@ public class ArrayDequeTest {
                 int ranValue = StdRandom.uniform(0, arrayDeque.size());
                 arrayDeque.get(ranValue);
             }
+        }
+    }
+
+    @Test
+    public void iterableTest() {
+        ArrayDeque<String> ad = new ArrayDeque<>();
+        ad.addLast("string 1");
+        ad.addLast("string 2");
+        ad.addLast("string 3");
+
+        for (String s : ad) {
+            System.out.println(s);
         }
     }
 }
