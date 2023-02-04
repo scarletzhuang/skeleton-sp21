@@ -5,20 +5,17 @@ import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class Node {
 
-        public T item;
+        private T item;
 
-        public Node prev;
+        private Node prev;
 
-        public Node next;
+        private Node next;
 
-        public Node(T item, Node prev, Node next) {
+        Node(T item, Node prev, Node next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
         }
-
-
-
     }
     private int size;
 
@@ -52,7 +49,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void printDeque() {
-        System.out.println(this);
+        System.out.println(this.linkedListDequeToString());
     }
 
     @Override
@@ -105,10 +102,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof LinkedListDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         }
-        LinkedListDeque<T> otherDeque = (LinkedListDeque) o;
+        Deque<T> otherDeque = (Deque<T>) o;
         if (otherDeque.size() != this.size()) {
             return false;
         }
@@ -120,8 +117,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return true;
     }
 
-    @Override
-    public String toString() {
+    /** Returns linked list deque item in string, seperated by a space.*/
+    private String linkedListDequeToString() {
         StringBuilder sb = new StringBuilder();
         for (T item : this) {
             sb.append(item.toString());

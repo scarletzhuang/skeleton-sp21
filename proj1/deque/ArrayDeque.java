@@ -52,7 +52,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void printDeque() {
-        System.out.println(this);
+        System.out.println(this.arrayDequeToString());
     }
 
     @Override
@@ -142,16 +142,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public String toString() {
-     StringBuilder sb = new StringBuilder();
-     for (T item : this) {
-         sb.append(item.toString());
-         sb.append(" ");
-     }
-     return sb.toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
@@ -161,11 +151,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return true;
         }
 
-        if (!(o instanceof ArrayDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         }
 
-        ArrayDeque<T> otherDeque = (ArrayDeque<T>) o;
+        Deque<T> otherDeque = (Deque<T>) o;
 
         if (otherDeque.size() != this.size()) {
             return false;
@@ -177,6 +167,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             }
         }
         return true;
+    }
+
+    /** Returns array deque item in string, seperated by a space.*/
+    private String arrayDequeToString() {
+        StringBuilder sb = new StringBuilder();
+        for (T item : this) {
+            sb.append(item.toString());
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 
     @Override
