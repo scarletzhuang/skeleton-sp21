@@ -155,6 +155,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
      * Uses recursion.
      */
     public T getRecursive(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        }
         return getRecursive(index, sentinel.next);
     }
 
